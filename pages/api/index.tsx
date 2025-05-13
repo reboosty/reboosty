@@ -31,12 +31,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const acceptHeader = req.headers['accept'] || '';
     
         // Redirect for browser requests
-        // if (acceptHeader.includes('text/html')) {
-        //     const selected = await redis.get<string>(`${SELECTED_PREFIX}${repoUrl}`) || DEFAULT_REPO;
-        //     res.writeHead(302, { Location: selected });
-        //     res.end();
-        //     return;
-        // }
         if (acceptHeader.includes('text/html')) {
             const selected = await redis.get<string>(`${SELECTED_PREFIX}${repoUrl}`) || DEFAULT_REPO;
             res.writeHead(302, {
@@ -100,8 +94,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
         // Set headers efficiently
         res.setHeader('Content-Type', 'image/svg+xml');
-        // res.setHeader('Cache-Control', `public, max-age=${CACHE_CONTROL_MAX_AGE}`);
-        res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate');
+        res.setHeader('Cache-Control',
+            `public, max-age=${CACHE_CONTROL_MAX_AGE}, s-maxage=${CACHE_CONTROL_MAX_AGE}, stale-while-revalidate=60`
+        );
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader(
             'Content-Security-Policy',
