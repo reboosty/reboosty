@@ -54,11 +54,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 const selectedKeys = await redis.keys(`${SELECTED_PREFIX}*`);
                 
                 if (selectedKeys.length > 0) {
-                    // Get all values at once with mget
-                    const values = await redis.mget<string[]>(...selectedKeys);
+                    const repos = selectedKeys.map(key => key.replace(SELECTED_PREFIX, ''));
                     
-                    // Filter out null values and create unique array
-                    allRepos = [...new Set(values.filter(Boolean))];
+                    // Filter out null ones and create unique array
+                    allRepos = [...new Set(repos)];
                 } else {
                     allRepos = [];
                 }
