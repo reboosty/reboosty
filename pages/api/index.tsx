@@ -32,9 +32,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
         // Redirect for browser requests
         if (acceptHeader.includes('text/html')) {
-            const selected = await redis.get<string>(`${SELECTED_PREFIX}${repoUrl}`);
-
-            return res.redirect(302, selected || DEFAULT_REPO);
+            const selected = await redis.get<string>(`${SELECTED_PREFIX}${repoUrl}`) || DEFAULT_REPO;
+            res.writeHead(302, { Location: selected });
+            res.end();
+            return;
         }
     
         // Check if we already have a selected repo for this URL
