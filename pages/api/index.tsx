@@ -9,11 +9,11 @@ const redis = new Redis({
 
 // Constants
 const DEFAULT_REPO = process.env.DEFAULT_REPO_URL || 'https://github.com/reboosty/reboosty';
-const CACHE_CONTROL_MAX_AGE = parseInt(process.env.CACHE_CONTROL_MAX_AGE || '3600', 10); // 1 hour
+const CACHE_CONTROL_MAX_AGE = parseInt(process.env.CACHE_CONTROL_MAX_AGE || '3600', 10); // 1 hour as default
 const SELECTED_PREFIX = 'selected_for:';
-const SELECTED_REPO_TTL = parseInt(process.env.SELECTED_REPO_TTL || '60', 10) * 60; // 1 hour
+const SELECTED_REPO_TTL = parseInt(process.env.SELECTED_REPO_TTL || '60', 10) * 60; // 1 hour as default
 const ALL_REPOS_CACHE_KEY = 'all_repos_cache';
-const ALL_REPOS_CACHE_TTL = parseInt(process.env.ALL_REPOS_CACHE_TTL || '60', 10) * 60; // 1 hour
+const ALL_REPOS_CACHE_TTL = parseInt(process.env.ALL_REPOS_CACHE_TTL || '15', 10) * 60; // 15 min as default
 
 // Pre-compiled SVG template
 const createSvg = (repoName: string): string =>
@@ -41,7 +41,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             res.end();
             return;
         }
-        
     
         // Check if we already have a selected repo for this URL
         let selected = await redis.get<string>(`${SELECTED_PREFIX}${repoUrl}`);
