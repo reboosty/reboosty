@@ -16,6 +16,8 @@ Reboosty is a **peer-promotion network** for **open-source** developers. By addi
 3. **Human Visitors Impact:** When someone clicks the badge, they're **redirected** to the **featured project**.
 4. **Fair Distribution:** The badge ensures that every project in the **Reboosty network** gets a **fair** chance to be promoted, with a **caching mechanism** to balance **exposure** and **loading speed**.
 
+> 🌟 *If you discover a cool project through the Reboosty badge, consider giving it a star — It really helps other developers discover it!*
+
 ## Demo
 <a href="https://reboosty-reboosty.vercel.app/api?repo_url=https://github.com/reboosty/reboosty" target="_blank">
   <img src="https://reboosty-reboosty.vercel.app/api?repo_url=https://github.com/reboosty/reboosty" alt="reboosty" />
