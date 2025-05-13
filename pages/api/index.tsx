@@ -94,9 +94,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
         // Set headers efficiently
         res.setHeader('Content-Type', 'image/svg+xml');
-        res.setHeader('Cache-Control',
-            `public, max-age=${CACHE_CONTROL_MAX_AGE}, s-maxage=${CACHE_CONTROL_MAX_AGE}, stale-while-revalidate=60`
-        );
+        // res.setHeader('Cache-Control',
+        //     `public, max-age=${CACHE_CONTROL_MAX_AGE}, s-maxage=${CACHE_CONTROL_MAX_AGE}, stale-while-revalidate=60`
+        // );
+        res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate');
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader(
             'Content-Security-Policy',
